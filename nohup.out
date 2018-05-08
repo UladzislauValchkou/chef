@@ -1,0 +1,16 @@
+spotify: /lib64/libcurl.so.4: no version information available (required by spotify)
+/usr/lib64/spotify-client/spotify: /lib64/libcurl.so.4: no version information available (required by /usr/lib64/spotify-client/spotify)
+[0508/130127:ERROR:main_delegate.cc(752)] Could not load cef_extensions.pak
+/proc/self/exe: /lib64/libcurl.so.4: no version information available (required by /proc/self/exe)
+[0508/130127:ERROR:main_delegate.cc(752)] Could not load cef_extensions.pak
+spotify: /lib64/libcurl.so.4: no version information available (required by spotify)
+/usr/lib64/spotify-client/spotify: /lib64/libcurl.so.4: no version information available (required by /usr/lib64/spotify-client/spotify)
+[0508/130146:ERROR:main_delegate.cc(752)] Could not load cef_extensions.pak
+/proc/self/exe: /lib64/libcurl.so.4: no version information available (required by /proc/self/exe)
+[0508/130146:ERROR:main_delegate.cc(752)] Could not load cef_extensions.pak
+spotify: /lib64/libcurl.so.4: no version information available (required by spotify)
+/usr/lib64/spotify-client/spotify: /lib64/libcurl.so.4: no version information available (required by /usr/lib64/spotify-client/spotify)
+[0508/130234:ERROR:main_delegate.cc(752)] Could not load cef_extensions.pak
+/proc/self/exe: /lib64/libcurl.so.4: no version information available (required by /proc/self/exe)
+[0508/130234:ERROR:main_delegate.cc(752)] Could not load cef_extensions.pak
+[0508/130243:ERROR:PlatformKeyboardEvent.cpp(94)] Not implemented reached in static bool blink::PlatformKeyboardEvent::currentCapsLockState()
