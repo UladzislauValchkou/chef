@@ -1,0 +1,220 @@
+[student@localhost jboss]$ kitchen converge
+-----> Starting Kitchen (v1.17.0)
+-----> Converging <default--home-student-git-chef-day2-task-cookbooks-centos-74-x86-64-minimalbox>...
+       Preparing files for transfer
+       Preparing dna.json
+       Resolving cookbook dependencies with Berkshelf 6.3.1...
+       Removing non-cookbook files before transfer
+       Preparing validation.pem
+       Preparing client.rb
+-----> Chef Omnibus installation detected (install only if missing)
+       Transferring files to <default--home-student-git-chef-day2-task-cookbooks-centos-74-x86-64-minimalbox>
+       Starting Chef Client, version 14.1.1
+       Creating a new client identity for default--home-student-git-chef-day2-task-cookbooks-centos-74-x86-64-minimalbox using the validator key.
+       resolving cookbooks for run list: ["jboss::default"]
+       Synchronizing Cookbooks:
+         - jboss (0.1.0)
+         - java (2.0.1)
+         - windows (4.2.2)
+         - homebrew (5.0.4)
+       Installing Cookbook Gems:
+       Compiling Cookbooks...
+       Converging 10 resources
+       Recipe: java::notify
+         * log[jdk-version-changed] action nothing (skipped due to action :nothing)
+       Recipe: java::openjdk
+         * yum_package[java-1.6.0-openjdk, java-1.6.0-openjdk-devel] action install
+           - install version 1:1.6.0.41-1.13.13.1.el7_3.x86_64 of package java-1.6.0-openjdk
+           - install version 1:1.6.0.41-1.13.13.1.el7_3.x86_64 of package java-1.6.0-openjdk-devel
+       Recipe: java::notify
+         * log[jdk-version-changed] action write
+         
+       Recipe: java::openjdk
+         * java_alternatives[set-java-alternatives] action set
+           - Add alternative for appletviewer
+           - Add alternative for apt
+           - Add alternative for extcheck
+           - Add alternative for idlj
+           - Add alternative for jar
+           - Add alternative for jarsigner
+           - Add alternative for java
+           - Add alternative for javac
+           - Add alternative for javadoc
+           - Add alternative for javah
+           - Add alternative for javap
+           - Add alternative for jconsole
+           - Add alternative for jdb
+           - Add alternative for jhat
+           - Add alternative for jinfo
+           - Add alternative for jmap
+           - Add alternative for jps
+           - Add alternative for jrunscript
+           - Add alternative for jsadebugd
+           - Add alternative for jstack
+           - Add alternative for jstat
+           - Add alternative for jstatd
+           - Add alternative for keytool
+           - Add alternative for native2ascii
+           - Add alternative for orbd
+           - Add alternative for pack200
+           - Add alternative for policytool
+           - Add alternative for rmic
+           - Add alternative for rmid
+           - Add alternative for rmiregistry
+           - Add alternative for schemagen
+           - Add alternative for serialver
+           - Add alternative for servertool
+           - Add alternative for tnameserv
+           - Add alternative for unpack200
+           - Add alternative for wsgen
+           - Add alternative for wsimport
+           - Add alternative for xjc
+       Recipe: java::set_java_home
+         * directory[/etc/profile.d] action create (up to date)
+         * template[/etc/profile.d/jdk.sh] action create
+           - create new file /etc/profile.d/jdk.sh
+           - update content in file /etc/profile.d/jdk.sh from none to 778ff5
+           --- /etc/profile.d/jdk.sh    2018-05-08 20:12:43.919301872 +0100
+           +++ /etc/profile.d/.chef-jdk20180508-16718-10zqhjf.sh        2018-05-08 20:12:43.919301872 +0100
+           @@ -1 +1,2 @@
+           +export JAVA_HOME=/usr/lib/jvm/java-1.6.0
+           - change mode from '' to '0755'
+       Recipe: jboss::default
+         * yum_package[unzip] action install
+           - install version 0:6.0-16.el7.x86_64 of package unzip
+         * linux_user[jboss] action create
+           - create user jboss
+         * remote_file[./jboss.zip] action create
+            - Progress: 10%
+            - Progress: 20%
+            - Progress: 30%
+            - Progress: 40%
+            - Progress: 50%
+            - Progress: 60%
+            - Progress: 70%
+            - Progress: 80%
+            - Progress: 90%
+            - Progress: 100%
+           - create new file ./jboss.zip
+           - update content in file ./jboss.zip from none to be93bc
+           (file sizes exceed 10000000 bytes, diff output suppressed)
+         * bash[unarchive] action run
+           - execute "bash"  "/tmp/chef-script20180508-16718-1g30d8h"
+         * systemd_unit[jboss.service] action create
+         Recipe: <Dynamically Defined Resource>
+           * file[/etc/systemd/system/jboss.service] action create
+             - create new file /etc/systemd/system/jboss.service
+             - update content in file /etc/systemd/system/jboss.service from none to 2a0eea
+             --- /etc/systemd/system/jboss.service      2018-05-08 20:13:03.533381523 +0100
+             +++ /etc/systemd/system/.chef-jboss20180508-16718-ocnky.service    2018-05-08 20:13:02.875378853 +0100
+             @@ -1 +1,18 @@
+             +  [Unit]
+             +  Description=Jboss Application Server
+             +  After=network.target
+             +
+             +  [Service]
+             +  Type=forking
+             +
+             +  User=jboss
+             +  Group=jboss
+             +  ExecStart=/bin/bash -c 'nohup /opt/jboss/bin/run.sh -b 192.168.56.10 &'
+             +  ExecStop=/bin/bash -c 'bin/shutdown.sh -s 192.168.56.10 -u admin'
+             +  TimeoutStartSec=300
+             +  TimeoutStopSec=600
+             +  SuccessExitStatus=143
+             +
+             +  [Install]
+             +  WantedBy=multi-user.target
+             - change mode from '' to '0644'
+             - change owner from '' to 'root'
+             - change group from '' to 'root'
+           - creating unit: jboss.service
+       Recipe: jboss::default
+         * systemd_unit[jboss.service] action enable
+           - enabling unit: jboss.service
+       
+       Running handlers:
+       Running handlers complete
+       Chef Client finished, 11/13 resources updated in 45 seconds
+       Finished converging <default--home-student-git-chef-day2-task-cookbooks-centos-74-x86-64-minimalbox> (0m53.95s).
+-----> Kitchen is finished. (0m55.24s)
+
+
+
+[vagrant@localhost ~]$ sudo chef-client -z start.rb 
+[2018-05-08T20:15:56+01:00] WARN: No config file found or specified on command line, using command line options.
+[2018-05-08T20:15:56+01:00] WARN: No cookbooks directory found at or above current directory.  Assuming /home/vagrant.
+Starting Chef Client, version 14.1.1
+resolving cookbooks for run list: []
+Synchronizing Cookbooks:
+Installing Cookbook Gems:
+Compiling Cookbooks...
+[2018-05-08T20:15:58+01:00] WARN: Node localhost has an empty run list.
+Converging 1 resources
+Recipe: @recipe_files::/home/vagrant/start.rb
+  * service[jboss] action start
+    - start service service[jboss]
+
+Running handlers:
+Running handlers complete
+Chef Client finished, 1/1 resources updated in 01 seconds
+
+
+
+[vagrant@localhost ~]$ sudo chef-client -z deploy.rb
+[2018-05-08T20:16:30+01:00] WARN: No config file found or specified on command line, using command line options.
+[2018-05-08T20:16:30+01:00] WARN: No cookbooks directory found at or above current directory.  Assuming /home/vagrant.
+Starting Chef Client, version 14.1.1
+resolving cookbooks for run list: []
+Synchronizing Cookbooks:
+Installing Cookbook Gems:
+Compiling Cookbooks...
+[2018-05-08T20:16:31+01:00] WARN: Node localhost has an empty run list.
+Converging 1 resources
+Recipe: @recipe_files::/home/vagrant/deploy.rb
+  * remote_file[/opt/jboss/server/default/deploy/sample.war] action create
+    - create new file /opt/jboss/server/default/deploy/sample.war
+    - update content in file /opt/jboss/server/default/deploy/sample.war from none to 89b33c
+    (new content is binary, diff output suppressed)
+
+Running handlers:
+Running handlers complete
+Chef Client finished, 1/1 resources updated in 02 seconds
+
+
+[vagrant@localhost ~]$ sudo chef-client -z restart.rb
+[2018-05-08T20:17:20+01:00] WARN: No config file found or specified on command line, using command line options.
+[2018-05-08T20:17:20+01:00] WARN: No cookbooks directory found at or above current directory.  Assuming /home/vagrant.
+Starting Chef Client, version 14.1.1
+resolving cookbooks for run list: []
+Synchronizing Cookbooks:
+Installing Cookbook Gems:
+Compiling Cookbooks...
+[2018-05-08T20:17:22+01:00] WARN: Node localhost has an empty run list.
+Converging 1 resources
+Recipe: @recipe_files::/home/vagrant/restart.rb
+  * service[jboss] action restart
+    - restart service service[jboss]
+
+Running handlers:
+Running handlers complete
+Chef Client finished, 1/1 resources updated in 04 seconds
+
+
+[vagrant@localhost ~]$ sudo chef-client -z stop.rb
+[2018-05-08T20:17:42+01:00] WARN: No config file found or specified on command line, using command line options.
+[2018-05-08T20:17:42+01:00] WARN: No cookbooks directory found at or above current directory.  Assuming /home/vagrant.
+Starting Chef Client, version 14.1.1
+resolving cookbooks for run list: []
+Synchronizing Cookbooks:
+Installing Cookbook Gems:
+Compiling Cookbooks...
+[2018-05-08T20:17:43+01:00] WARN: Node localhost has an empty run list.
+Converging 1 resources
+Recipe: @recipe_files::/home/vagrant/stop.rb
+  * service[jboss] action stop (up to date)
+
+Running handlers:
+Running handlers complete
+Chef Client finished, 0/1 resources updated in 01 seconds
+
