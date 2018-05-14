@@ -5,10 +5,10 @@ property :detach_srv, String, default: '0.0.0.0'
 action :attach do
   result = ""
   search(:node, 'role:jbossrole').each do |node|
-    result += "server #{node[:network][:interfaces][:enp0s8][:addresses].detect{|k,v| v[:family] == 'inet' }.first}:8090;"
+    result += "server #{node[':network'][':interfaces'][':enp0s8'][':addresses'].detect{|k,v| v[':family'] == 'inet' }.first}:8090;"
   end
 
-  ip_addr = node[:network][:interfaces][:enp0s8][:addresses].detect{|k,v| v[:family] == 'inet' }.first
+  ip_addr = node[':network'][':interfaces'][':enp0s8'][':addresses'].detect{|k,v| v[':family'] == 'inet' }.first
   template '/etc/nginx/nginx.conf' do
     source "nginx.conf.erb"
     variables( 
